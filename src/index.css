@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@theme {
+  --color-luxe-bg: #0A0A0B;
+  --color-luxe-card: #121214;
+  --color-luxe-backdrop: #060607;
+  --color-luxe-primary: #F5F5F0;
+  --color-luxe-secondary: #9B9B9B;
+  --color-luxe-gold: #D4AF37;
+  --color-luxe-[#C59B27]: #C59B27;
+
+  --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', Inter, sans-serif;
+  --font-display: 'Cinzel', serif;
+}
+
+/* Floating animation keyframes for 3D spheres */
+@keyframes floatSlow1 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-24px) rotate(4deg); }
+}
+
+@keyframes floatSlow2 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-32px) rotate(-6deg); }
+}
+
+@keyframes floatSlow3 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-18px) rotate(3deg); }
+}
+
+.animate-float-1 {
+  animation: floatSlow1 5.5s ease-in-out infinite;
+}
+
+.animate-float-2 {
+  animation: floatSlow2 7s ease-in-out infinite;
+}
+
+.animate-float-3 {
+  animation: floatSlow3 4.8s ease-in-out infinite;
+}
+
+/* Glassmorphism utilities */
+.glass-panel {
+  background: rgba(18, 18, 20, 0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-nav {
+  background: rgba(10, 10, 11, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* Custom minimal scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #060607;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.4);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+}
