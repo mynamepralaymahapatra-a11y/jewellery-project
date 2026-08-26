@@ -1,203 +1,228 @@
 import React, { useState, useEffect } from 'react';
-import { LayoutGrid, Calendar, Volume2, VolumeX, Menu, X, Sun, Sparkles } from 'lucide-react';
+import { Search, User, ShoppingBag, Menu, X } from 'lucide-react';
 
 export default function Navbar({ 
-  activeSection, 
-  setActiveSection, 
-  onOpenTickets, 
-  audioPlaying, 
-  toggleAudio,
-  haloMood,
-  setHaloMood
+  onOpenShop, 
+  onOpenSignup 
 }) {
   const [scrolled, setScrolled] = useState(false);
+  const [activeTab, setActiveTab] = useState('HOME');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
 
-  const navItems = [
-    { id: 'home', label: 'HOME' },
-    { id: 'collection', label: 'COLLECTION' },
-    { id: 'designers', label: 'DESIGNERS' },
-    { id: 'events', label: 'EVENTS' },
-    { id: 'appointment', label: 'APPOINTMENT' },
+  const leftNavItems = [
+    { id: 'HOME', label: 'HOME', href: '#home' },
+    { id: 'COLLECTION', label: 'COLLECTION', href: '#collection' },
+    { id: 'ABOUT US', label: 'ABOUT US', href: '#about' },
   ];
 
-  const haloMoods = [
-    { id: 'white', label: 'WHITE' },
-    { id: 'warm', label: 'WARM' },
-    { id: 'cool', label: 'COOL' },
-    { id: 'electric', label: 'ELECTRIC' },
+  const rightNavItems = [
+    { id: 'SHOP', label: 'SHOP', href: '#shop' },
+    { id: 'WHY DIAMORA', label: 'WHY DIAMORA', href: '#whydiamora' },
+    { id: 'CONTACT', label: 'CONTACT', href: '#contact' },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
+      setScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (id) => {
-    setActiveSection(id);
+  const handleNavClick = (tabId, href) => {
+    setActiveTab(tabId);
     setMobileMenuOpen(false);
-    if (id === 'appointment') {
-      onOpenTickets();
+    if (tabId === 'SHOP' && onOpenShop) {
+      onOpenShop();
       return;
     }
-    const element = document.getElementById(id);
+    const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-      scrolled ? 'glass-nav py-4 shadow-2xl' : 'bg-transparent py-6'
-    }`}>
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+    <header 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-poppins ${
+        scrolled 
+          ? 'bg-[#0C0D10]/90 backdrop-blur-md border-b border-white/10 shadow-2xl py-1.5 sm:py-2' 
+          : 'bg-transparent py-3 sm:py-4'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between">
         
-        {/* Left: Brand Wordmark */}
-        <a 
-          href="#home" 
-          onClick={(e) => { e.preventDefault(); handleNavClick('home'); }}
-          className="group flex items-center gap-3"
-        >
-          <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover:border-[#3B6EF5] transition-colors duration-300">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#3B6EF5] group-hover:scale-125 transition-transform duration-300 shadow-[0_0_8px_#3B6EF5]" />
-          </div>
-          <span className="font-serif text-xl md:text-2xl font-semibold tracking-[0.4em] text-[#F5F5F0] group-hover:text-white transition-colors uppercase">
-            L U X E
-          </span>
-        </a>
-
-        {/* Center Nav Links (Desktop) */}
-        <nav className="hidden md:flex items-center space-x-6 lg:space-x-10">
-          {navItems.map((item) => {
-            const isActive = activeSection === item.id;
+        {/* LEFT NAV MENU (DESKTOP) */}
+        <nav className="hidden md:flex items-center space-x-6 lg:space-x-10 flex-1 justify-start">
+          {leftNavItems.map((item) => {
+            const isActive = activeTab === item.id;
             return (
-              <button
+              <a
                 key={item.id}
-                onClick={() => handleNavClick(item.id)}
-                className={`relative py-1 text-[11px] font-semibold tracking-[0.25em] transition-colors duration-300 uppercase ${
-                  isActive ? 'text-[#F5F5F0]' : 'text-[#9B9B9B] hover:text-[#F5F5F0]'
+                href={item.href}
+                onClick={(e) => { e.preventDefault(); handleNavClick(item.id, item.href); }}
+                className={`relative py-1 text-xs font-medium tracking-[0.2em] transition-colors duration-300 uppercase ${
+                  isActive ? 'text-[#E0B094]' : 'text-[#C5C8D0] hover:text-[#E0B094]'
                 }`}
               >
                 {item.label}
                 {isActive && (
-                  <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#3B6EF5] shadow-[0_0_8px_#3B6EF5]" />
+                  <span className="absolute -bottom-1 left-0 w-full h-[1.5px] bg-[#E0B094] shadow-[0_0_8px_rgba(224,176,148,0.6)]" />
                 )}
-              </button>
+              </a>
             );
           })}
         </nav>
 
-        {/* Right Actions & Controls */}
-        <div className="flex items-center space-x-3 md:space-x-5">
-          
-          {/* HALO MOOD Switcher Group */}
-          <div className="hidden lg:flex items-center gap-1 p-1 rounded-full border border-white/10 bg-black/50 backdrop-blur-md">
-            <span className="text-[9px] font-mono tracking-widest text-[#9B9B9B] pl-2 pr-1 uppercase">HALO:</span>
-            {haloMoods.map((m) => (
-              <button
-                key={m.id}
-                onClick={() => setHaloMood(m.id)}
-                className={`px-2.5 py-1 rounded-full text-[9px] font-bold tracking-wider transition-all duration-300 uppercase ${
-                  haloMood === m.id
-                    ? 'bg-white text-black shadow-[0_0_12px_rgba(255,255,255,0.5)]'
-                    : 'text-[#9B9B9B] hover:text-white'
-                }`}
-              >
-                {m.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Sound Toggle Pill Button */}
-          <button
-            onClick={toggleAudio}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-medium text-[#9B9B9B] hover:text-[#F5F5F0] transition-all duration-300"
-            title={audioPlaying ? "Mute Atelier Acoustics" : "Play Atelier Acoustics"}
+        {/* CENTER LOGO (ROUNDED GLASS FRAME WITH SMOOTH BACKGROUND MELTING) */}
+        <div className="flex-1 md:flex-initial flex items-center justify-center py-0.5 px-3">
+          <a 
+            href="#home" 
+            onClick={(e) => { e.preventDefault(); handleNavClick('HOME', '#home'); }}
+            className="flex items-center justify-center group"
           >
-            {audioPlaying ? (
-              <>
-                <Volume2 className="w-3.5 h-3.5 text-[#3B6EF5] animate-pulse" />
-                <span className="hidden xl:inline text-[10px] tracking-wider text-[#3B6EF5] font-mono">SOUND ON</span>
-              </>
-            ) : (
-              <>
-                <VolumeX className="w-3.5 h-3.5 text-[#9B9B9B]" />
-                <span className="hidden xl:inline text-[10px] tracking-wider font-mono">SOUND OFF</span>
-              </>
-            )}
-          </button>
-
-          {/* Solid Blue BOOK APPOINTMENT Pill Button */}
-          <button
-            onClick={onOpenTickets}
-            className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-[#3B6EF5] hover:bg-[#2A57D8] text-white text-xs font-semibold tracking-wider uppercase transition-all duration-300 shadow-[0_0_20px_rgba(59,110,245,0.4)] hover:shadow-[0_0_30px_rgba(59,110,245,0.6)]"
-          >
-            <Calendar className="w-3.5 h-3.5" />
-            <span>BOOK APPOINTMENT</span>
-          </button>
-
-          {/* Grid Icon Button */}
-          <button
-            onClick={() => handleNavClick('collection')}
-            className="p-2.5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-[#F5F5F0] hover:text-[#3B6EF5] transition-all duration-300"
-            title="Browse High-Jewelry Grid"
-          >
-            <LayoutGrid className="w-4 h-4" />
-          </button>
-
-          {/* Mobile Drawer Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2.5 rounded-xl border border-white/10 bg-white/5 text-[#F5F5F0]"
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+            <div className="relative px-2.5 py-1 rounded-2xl bg-black/40 border border-[#D4AF37]/25 shadow-[0_0_15px_rgba(212,175,55,0.12)] backdrop-blur-md flex items-center justify-center transition-all duration-300 group-hover:border-[#D4AF37]/50 group-hover:shadow-[0_0_20px_rgba(212,175,55,0.25)]">
+              <img 
+                src="/logo.png" 
+                alt="Diamora Logo" 
+                className={`w-auto object-contain transition-all duration-300 mix-blend-screen filter brightness-110 contrast-125 ${
+                  scrolled 
+                    ? 'h-6 sm:h-7 md:h-8 max-w-[120px] sm:max-w-[150px]' 
+                    : 'h-8 sm:h-9 md:h-10 max-w-[140px] sm:max-w-[180px]'
+                }`} 
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.nextSibling.style.display = 'block';
+                }}
+              />
+              <span className="font-cinzel text-lg sm:text-xl font-bold tracking-[0.25em] text-[#D4AF37] hidden uppercase">
+                DIAMORA
+              </span>
+            </div>
+          </a>
         </div>
-      </div>
 
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className="md:hidden glass-panel border-t border-white/10 px-6 py-8 mt-4 animate-fadeIn space-y-6">
-          {/* Halo Mood Switcher Mobile */}
-          <div className="flex items-center justify-between py-2 border-b border-white/10">
-            <span className="text-xs font-mono text-[#9B9B9B]">SPOTLIGHT HALO MOOD:</span>
-            <div className="flex gap-1">
-              {haloMoods.map((m) => (
-                <button
-                  key={m.id}
-                  onClick={() => setHaloMood(m.id)}
-                  className={`px-2 py-1 rounded-full text-[9px] font-bold ${
-                    haloMood === m.id ? 'bg-white text-black' : 'bg-white/10 text-[#9B9B9B]'
+        {/* RIGHT NAV MENU & UTILITY ICONS (DESKTOP) */}
+        <div className="hidden md:flex items-center justify-end flex-1 space-x-6 lg:space-x-8">
+          
+          <nav className="flex items-center space-x-6 lg:space-x-8">
+            {rightNavItems.map((item) => {
+              const isActive = activeTab === item.id;
+              return (
+                <a
+                  key={item.id}
+                  href={item.href}
+                  onClick={(e) => { e.preventDefault(); handleNavClick(item.id, item.href); }}
+                  className={`relative py-1 text-xs font-medium tracking-[0.2em] transition-colors duration-300 uppercase ${
+                    isActive ? 'text-[#E0B094]' : 'text-[#C5C8D0] hover:text-[#E0B094]'
                   }`}
                 >
-                  {m.label}
-                </button>
-              ))}
-            </div>
+                  {item.label}
+                  {isActive && (
+                    <span className="absolute -bottom-1 left-0 w-full h-[1.5px] bg-[#E0B094] shadow-[0_0_8px_rgba(224,176,148,0.6)]" />
+                  )}
+                </a>
+              );
+            })}
+          </nav>
+
+          {/* UTILITY ICONS: Search, User, Cart */}
+          <div className="flex items-center space-x-4 border-l border-white/10 pl-6 text-[#F5F5F0]">
+            
+            {/* Search Icon */}
+            <button 
+              className="p-1.5 hover:text-[#E0B094] transition-colors focus:outline-none"
+              title="Search"
+            >
+              <Search className="w-4 h-4" />
+            </button>
+
+            {/* User Account Icon */}
+            <button 
+              onClick={onOpenSignup}
+              className="p-1.5 hover:text-[#E0B094] transition-colors focus:outline-none"
+              title="Account"
+            >
+              <User className="w-4 h-4" />
+            </button>
+
+            {/* Shopping Bag Icon with Badge Counter */}
+            <button 
+              onClick={onOpenShop}
+              className="relative p-1.5 hover:text-[#E0B094] transition-colors focus:outline-none"
+              title="Shopping Cart"
+            >
+              <ShoppingBag className="w-4 h-4" />
+              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#E0B094] text-[#0C0D10] text-[9px] font-extrabold flex items-center justify-center shadow-md">
+                {cartCount}
+              </span>
+            </button>
+
           </div>
 
+        </div>
+
+        {/* MOBILE MENU TOGGLE BUTTON */}
+        <div className="md:hidden flex items-center space-x-3">
+          
+          {/* Shopping Bag Icon Mobile */}
+          <button 
+            onClick={onOpenShop}
+            className="relative p-1.5 text-[#F5F5F0] hover:text-[#E0B094]"
+          >
+            <ShoppingBag className="w-5 h-5" />
+            <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#E0B094] text-[#0C0D10] text-[9px] font-extrabold flex items-center justify-center">
+              {cartCount}
+            </span>
+          </button>
+
+          {/* Hamburger Menu */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="p-2 rounded-lg text-[#F5F5F0] hover:text-[#E0B094] focus:outline-none"
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
+
+      </div>
+
+      {/* MOBILE DRAWER */}
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-[#0C0D10]/95 backdrop-blur-xl border-t border-white/10 px-6 py-6 mt-3 shadow-2xl space-y-5 animate-fadeIn">
+          
           <div className="flex flex-col space-y-4">
-            {navItems.map((item) => (
-              <button
+            {[...leftNavItems, ...rightNavItems].map((item) => (
+              <a
                 key={item.id}
-                onClick={() => handleNavClick(item.id)}
-                className={`text-left text-sm font-semibold tracking-[0.25em] py-2 border-b border-white/5 ${
-                  activeSection === item.id ? 'text-[#3B6EF5]' : 'text-[#9B9B9B]'
+                href={item.href}
+                onClick={(e) => { e.preventDefault(); handleNavClick(item.id, item.href); }}
+                className={`text-left text-xs font-semibold tracking-[0.2em] py-2 border-b border-white/5 uppercase ${
+                  activeTab === item.id ? 'text-[#E0B094]' : 'text-[#C5C8D0]'
                 }`}
               >
                 {item.label}
-              </button>
+              </a>
             ))}
-            <button
-              onClick={() => { setMobileMenuOpen(false); onOpenTickets(); }}
-              className="w-full py-3 rounded-full bg-[#3B6EF5] text-white font-semibold text-xs tracking-widest text-center mt-4"
+          </div>
+
+          <div className="flex items-center justify-around pt-3 border-t border-white/10 text-[#F5F5F0]">
+            <button 
+              className="flex items-center gap-2 text-xs text-[#C5C8D0] hover:text-[#E0B094]"
             >
-              BOOK PRIVATE APPOINTMENT
+              <Search className="w-4 h-4" />
+              <span>SEARCH</span>
+            </button>
+            <button 
+              onClick={onOpenSignup}
+              className="flex items-center gap-2 text-xs text-[#C5C8D0] hover:text-[#E0B094]"
+            >
+              <User className="w-4 h-4" />
+              <span>ACCOUNT</span>
             </button>
           </div>
+
         </div>
       )}
     </header>

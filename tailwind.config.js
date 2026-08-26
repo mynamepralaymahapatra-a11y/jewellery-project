@@ -18,9 +18,10 @@ export default {
         }
       },
       fontFamily: {
-        serif: ['Cormorant Garamond', 'Playfair Display', 'Georgia', 'serif'],
-        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
-        display: ['Cinzel', 'serif']
+        sans: ['Open Sans', 'Poppins', 'Roboto', 'sans-serif'],
+        display: ['Cinzel', 'serif'],
+        poppins: ['Poppins', 'sans-serif'],
+        roboto: ['Roboto', 'sans-serif'],
       },
       animation: {
         'halo-pulse': 'haloPulse 12s ease-in-out infinite alternate',

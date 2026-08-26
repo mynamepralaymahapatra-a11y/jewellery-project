@@ -24,21 +24,29 @@ export default function Footer({ onOpenTickets }) {
         {/* Brand Column (Span 4) */}
         <div className="md:col-span-4 space-y-6">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">
-              <span className="w-2 h-2 rounded-full bg-[#3B6EF5]" />
+            <div className="relative px-3 py-1.5 rounded-2xl bg-black/40 border border-[#D4AF37]/25 shadow-[0_0_15px_rgba(212,175,55,0.12)] backdrop-blur-md inline-flex items-center justify-center">
+              <img 
+                src="/logo.png" 
+                alt="Diamora Logo" 
+                className="h-10 sm:h-12 w-auto object-contain max-w-[170px] mix-blend-screen filter brightness-110 contrast-125" 
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.nextSibling.style.display = 'block';
+                }}
+              />
+              <span className="font-cinzel text-xl font-bold tracking-[0.25em] text-[#D4AF37] hidden uppercase">
+                DIAMORA
+              </span>
             </div>
-            <span className="font-serif text-2xl font-semibold tracking-[0.35em] text-[#F5F5F0]">
-              L O U V R E
-            </span>
           </div>
 
-          <p className="text-xs text-[#9B9B9B] leading-relaxed max-w-sm">
-            The Musée du Louvre in Paris is the world’s largest art museum and a historic monument. Preserving human creative heritage across nine millennia.
+          <p className="font-open-sans text-xs text-[#9B9B9B] leading-relaxed max-w-sm">
+            Handcrafted luxury gold & diamond jewelry. Preserving master artisan craftsmanship, rare gems, and timeless elegance for life&apos;s most precious moments.
           </p>
 
-          <div className="flex items-center gap-4 text-xs font-mono text-[#F5F5F0]">
-            <MapPin className="w-4 h-4 text-[#3B6EF5]" />
-            <span>Rue de Rivoli, 75001 Paris, France</span>
+          <div className="flex items-center gap-3 text-xs font-poppins text-[#E0B094]">
+            <MapPin className="w-4 h-4 text-[#E0B094]" />
+            <span>Place Vendôme, 75001 Paris, France</span>
           </div>
         </div>
 

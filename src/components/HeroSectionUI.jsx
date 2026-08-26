@@ -35,7 +35,7 @@ export default function HeroSectionUI({ onOpenShop, onOpenSignup }) {
   ];
 
   return (
-    <div className="relative w-full min-h-screen bg-[#0C0D10] text-[#F5F5F0] overflow-hidden flex flex-col justify-between select-none">
+    <div className="open-sans relative w-full min-h-screen bg-[#0C0D10] text-[#F5F5F0] overflow-hidden flex flex-col justify-between select-none">
       
       {/* Decorative Organic Layered Background Wavy Artwork */}
       <div className="absolute inset-0 pointer-events-none z-0">
@@ -95,71 +95,48 @@ export default function HeroSectionUI({ onOpenShop, onOpenSignup }) {
         </div>
       </div>
 
-      {/* TOP NAVBAR */}
-      <header className="relative z-30 max-w-7xl w-full mx-auto px-6 sm:px-12 py-8 flex items-center justify-between">
-        <a href="#home" className="flex items-center gap-2 group">
-          <span className="font-serif text-2xl lg:text-3xl font-semibold tracking-[0.2em] text-[#D4AF37] group-hover:text-white transition-colors">
-            YourShopLogo
-          </span>
-        </a>
-
-        <nav className="hidden md:flex items-center space-x-8 lg:space-x-12">
-          {navLinks.map((link) => (
-            <a
-              key={link}
-              href={`#${link.toLowerCase()}`}
-              className="text-xs font-semibold tracking-[0.25em] text-[#C5C8D0] hover:text-[#D4AF37] transition-colors uppercase"
-            >
-              {link}
-            </a>
-          ))}
-        </nav>
-
-        <button
-          onClick={onOpenSignup}
-          className="px-8 py-2.5 rounded-full bg-[#C59B27] hover:bg-[#D4AF37] text-[#0C0D10] font-bold text-xs tracking-[0.2em] uppercase transition-all duration-300 shadow-[0_4px_20px_rgba(197,155,39,0.35)] hover:shadow-[0_6px_25px_rgba(212,175,55,0.5)]"
-        >
-          SIGN UP
-        </button>
-      </header>
-
       {/* HERO MAIN CONTENT SECTION */}
-      <main className="relative z-20 max-w-7xl w-full mx-auto px-6 sm:px-12 py-6 my-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <main className="relative z-20 max-w-7xl w-full mx-auto px-6 sm:px-12 pt-28 sm:pt-32 pb-12 my-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
         {/* Left Side Content (Span 7) */}
-        <div className="lg:col-span-7 flex flex-col justify-center space-y-6 max-w-xl">
-          <h1 className="font-sans font-black text-4xl sm:text-5xl lg:text-6xl text-white italic tracking-tight leading-[1.1]">
-            It’s a Signature <br />
-            Gold Jewelry Sale!
+        <div className="lg:col-span-7 flex flex-col justify-center space-y-5 max-w-xl">
+          
+          {/* Eyebrow Header */}
+          <span className="font-poppins text-xs sm:text-sm font-medium tracking-[0.28em] text-[#E0B094] uppercase">
+            NOT JUST A JEWEL,
+          </span>
+
+          {/* Main Headline */}
+          <h1 className="font-cinzel text-5xl sm:text-6xl lg:text-7xl font-normal leading-[1.08] tracking-[0.08em]">
+            <span className="bg-gradient-to-r from-[#F7E09A] via-[#D4AF37] to-[#C59B27] bg-clip-text text-transparent block drop-shadow-[0_2px_15px_rgba(212,175,55,0.3)]">A PROMISE</span>
+            <span className="text-white block">FOREVER</span>
           </h1>
 
-          <h2 className="font-sans font-bold text-xl sm:text-2xl text-[#C59B27] tracking-wide">
-            Handcrafted Gold & Diamond Masterpieces
-          </h2>
+          {/* Elegant Line Divider with Center Luxury Sparkle Star */}
+          <div className="flex items-center gap-3.5 w-52 py-2">
+            <div className="h-[1px] bg-gradient-to-r from-[#E0B094]/70 to-[#E0B094]/20 flex-1" />
+            <svg className="w-3.5 h-3.5 text-[#E0B094] fill-current shrink-0 opacity-95 drop-shadow-[0_0_6px_rgba(224,176,148,0.5)]" viewBox="0 0 24 24">
+              <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+            </svg>
+            <div className="h-[1px] bg-gradient-to-l from-[#E0B094]/70 to-[#E0B094]/20 flex-1" />
+          </div>
 
-          <p className="text-sm sm:text-base text-[#9B9EA7] leading-relaxed max-w-lg font-normal">
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna volutpat.
+          {/* Description Subtext */}
+          <p className="font-open-sans text-sm sm:text-base text-[#B0B3BC] leading-relaxed max-w-md font-normal">
+            Exquisite solitaire diamonds crafted with precision. Made for life&apos;s most precious moments.
           </p>
 
-          <form onSubmit={handleApplyPromo} className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 max-w-md">
-            <div className="relative flex-1">
-              <input
-                type="text"
-                value={promoCode}
-                onChange={(e) => setPromoCode(e.target.value)}
-                placeholder="Enter the promo code here"
-                className="w-full px-6 py-3.5 rounded-full border-2 border-white/80 bg-transparent text-white placeholder:text-[#808490] text-xs font-medium focus:outline-none focus:border-[#D4AF37] transition-colors"
-              />
-            </div>
-
+          {/* CTA Button */}
+          <div className="pt-2 flex items-center gap-4">
             <button
-              type="submit"
               onClick={onOpenShop}
-              className="px-8 py-3.5 rounded-full bg-[#C59B27] hover:bg-[#D4AF37] text-white font-semibold text-xs tracking-wider uppercase transition-all duration-300 shadow-[0_4px_20px_rgba(197,155,39,0.4)] whitespace-nowrap"
+              className="group font-poppins px-7 py-3.5 border border-[#E0B094]/70 hover:border-[#E0B094] bg-black/40 hover:bg-[#E0B094]/10 text-[#E0B094] font-semibold text-xs tracking-[0.22em] uppercase transition-all duration-300 flex items-center gap-3 shadow-[0_4px_25px_rgba(0,0,0,0.5)]"
             >
-              {promoApplied ? 'APPLIED ✓' : 'SHOP NOW'}
+              <span>EXPLORE COLLECTION</span>
+              <span className="text-sm group-hover:translate-x-1 transition-transform">→</span>
             </button>
-          </form>
+          </div>
+
         </div>
 
         {/* Right Side Content (Span 5) — REAL 3D GOLD RING COMPACT FRAME WITH MARGINS */}

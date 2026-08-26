@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import Navbar from './components/Navbar';
 import HeroSectionUI from './components/HeroSectionUI';
+import BrandFeaturesBar from './components/BrandFeaturesBar';
+import RotatingArcShowcase from './components/RotatingArcShowcase';
 import CollectionShowcase from './components/CollectionShowcase';
+import CustomerReviewsSection from './components/CustomerReviewsSection';
 import ExhibitionEvents from './components/ExhibitionEvents';
 import TicketModal from './components/TicketModal';
 import AmbientAudioPlayer from './components/AmbientAudioPlayer';
@@ -20,14 +24,31 @@ export default function App() {
       {/* Ambient Audio Engine */}
       <AmbientAudioPlayer isPlaying={audioPlaying} />
 
+      {/* Sticky Glassmorphic Navbar */}
+      <Navbar 
+        onOpenShop={() => setIsTicketModalOpen(true)}
+        onOpenSignup={() => setIsTicketModalOpen(true)}
+      />
+
       {/* Main Reference Screenshot Hero UI Layout */}
       <HeroSectionUI
         onOpenShop={() => setIsTicketModalOpen(true)}
         onOpenSignup={() => setIsTicketModalOpen(true)}
       />
 
+      {/* Brand Trust & Luxury Features Bar */}
+      <BrandFeaturesBar />
+
+      {/* Mejuri-Style Clockwise Rotating Product Arc Showcase */}
+      <RotatingArcShowcase 
+        onOpenShop={() => setIsTicketModalOpen(true)}
+      />
+
       {/* Permanent Masterpiece Collection Showcase */}
-      <CollectionShowcase />
+      <CollectionShowcase onOpenShop={() => setIsTicketModalOpen(true)} />
+
+      {/* What Our Customers Say - Review Section */}
+      <CustomerReviewsSection />
 
       {/* Private Salons & Atelier Symposia */}
       <ExhibitionEvents onOpenTickets={() => setIsTicketModalOpen(true)} />

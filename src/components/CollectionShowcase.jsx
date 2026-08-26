@@ -1,241 +1,241 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Eye, ArrowUpRight, Sparkles, Filter, X, Award, Diamond, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Sparkles, Diamond, Eye, X, Award, ShieldCheck } from 'lucide-react';
 
-export default function CollectionShowcase() {
-  const [activeFilter, setActiveFilter] = useState('ALL');
-  const [selectedArtwork, setSelectedArtwork] = useState(null);
+export default function CollectionShowcase({ onOpenShop }) {
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
-  const jewelryCollection = [
+  const curatedProducts = [
     {
-      id: 'eternal-solitaire',
-      title: 'The Eternal Solitaire',
-      category: 'RINGS',
-      carat: '4.20 Carats',
-      metal: 'Platinum 950',
+      id: 'aadhavi-stud',
+      title: 'AADHAVI DIAMOND STUD',
+      price: 'RS. 39,672',
       image: '/images/ring_hero.jpg',
-      clarity: 'D-Flawless Type IIa',
-      atelier: 'Place Vendôme Atelier',
-      description: 'An extraordinary 4.20 carat oval cut solitaire set in hand-engraved platinum 950 with micro-pavé accents along the split shank.'
+      hoverImage: '/images/winged_victory.jpg',
+      category: 'EARRINGS',
+      metal: '18K Rose Gold',
+      description: 'Handcrafted rose gold twisted studs set with brilliant round cut certified natural diamonds.'
     },
     {
-      id: 'diamond-riviere',
-      title: 'The Grand Riviere Choker',
-      category: 'NECKLACES',
-      carat: '38.50 Total Carats',
-      metal: 'Solid Platinum 950',
-      image: '/images/necklace_hero.jpg',
-      clarity: 'Collection Quality F-VVS1',
-      atelier: 'Geneva Salon',
-      description: 'A seamless cascade of 52 graduated round brilliant diamonds, each individually claw-set to rest flat against the collarbone.'
-    },
-    {
-      id: 'winged-victoria-ring',
-      title: 'Victoria Marquise Solitaire',
-      category: 'RINGS',
-      carat: '3.15 Carats',
-      metal: '18K Yellow Gold & Platinum',
+      id: 'aadya-studs',
+      title: 'AADYA DIAMOND STUDS',
+      price: 'RS. 46,448',
       image: '/images/winged_victory.jpg',
-      clarity: 'D-IF Flawless',
-      atelier: 'Place Vendôme Atelier',
-      description: 'Inspired by ancient wings, featuring a central elongated marquise diamond flanked by tapered baguette diamond shoulders.'
-    },
-    {
-      id: 'psyche-emerald-cut',
-      title: 'Psyche Emerald Cut Ring',
-      category: 'RINGS',
-      carat: '5.05 Carats',
-      metal: 'Platinum 950',
-      image: '/images/psyche_cupid.jpg',
-      clarity: 'E-VVS1 Step Cut',
-      atelier: 'Paris Haute Atelier',
-      description: 'A breathtaking 5.05 carat architectural emerald-cut diamond exhibiting crisp hall-of-mirrors reflections and stepped facets.'
-    },
-    {
-      id: 'sapphire-halo',
-      title: 'Royal Ceylon Sapphire Ring',
-      category: 'HIGH JEWELRY',
-      carat: '6.40 Carat Sapphire',
+      hoverImage: '/images/psyche_cupid.jpg',
+      category: 'EARRINGS',
       metal: '18K White Gold',
-      image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1000&q=80',
-      clarity: 'Unheated Natural Sapphire',
-      atelier: 'Milan Private Vault',
-      description: 'A velvety royal blue Sri Lankan sapphire framed by a double halo of pear-shaped brilliant white diamonds.'
+      description: 'Square cluster white gold diamond studs engineered for maximum light refraction.'
     },
     {
-      id: 'pave-cuff',
-      title: 'Architectural Diamond Cuff',
+      id: 'ahalya-nose-pin',
+      title: 'AHALYA DIAMOND NOSE PIN',
+      price: 'RS. 21,450',
+      image: '/images/psyche_cupid.jpg',
+      hoverImage: 'https://images.unsplash.com/photo-1635767798638-3e25273a8236?auto=format&fit=crop&w=800&q=80',
+      category: 'NOSE PINS',
+      metal: 'Platinum 950',
+      description: 'A delicate single-row eternity solitaire nose ring crafted in pure platinum 950.'
+    },
+    {
+      id: 'aisha-nose-pin',
+      title: 'AISHA DIAMOND NOSE PIN',
+      price: 'RS. 23,335',
+      image: 'https://images.unsplash.com/photo-1635767798638-3e25273a8236?auto=format&fit=crop&w=800&q=80',
+      hoverImage: '/images/ring_hero.jpg',
+      category: 'NOSE PINS',
+      metal: '18K Yellow Gold',
+      description: 'Solid yellow gold huggie pin encrusted with three micro-paved brilliant diamonds.'
+    },
+    {
+      id: 'royal-earrings',
+      title: 'ROYAL SOLITAIRE EARRINGS',
+      price: 'RS. 52,180',
+      image: '/images/necklace_hero.jpg',
+      hoverImage: '/images/venus_hero.jpg',
       category: 'HIGH JEWELRY',
-      carat: '18.20 Total Carats',
-      metal: 'Platinum & 18K Rose Gold',
-      image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=1000&q=80',
-      clarity: 'VS1 Collection Grade',
-      atelier: 'Place Vendôme Atelier',
-      description: 'A flexible lattice cuff bracelet handcrafted in platinum and rose gold with over 400 micro-paved brilliant cut diamonds.'
+      metal: 'Platinum 950',
+      description: 'Timeless solitaire drop earrings featuring 2.0 total carat collection quality diamonds.'
+    },
+    {
+      id: 'ceylon-band',
+      title: 'CEYLON SAPPHIRE BAND',
+      price: 'RS. 34,900',
+      image: '/images/venus_hero.jpg',
+      hoverImage: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80',
+      category: 'RINGS',
+      metal: '18K White Gold',
+      description: 'Velvety unheated Sri Lankan royal blue sapphire set between white diamond pave shoulders.'
+    },
+    {
+      id: 'venetian-drop',
+      title: 'VENETIAN DIAMOND DROP',
+      price: 'RS. 28,750',
+      image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80',
+      hoverImage: '/images/necklace_hero.jpg',
+      category: 'NECKLACES',
+      metal: '18K Gold',
+      description: 'Cascading Venetian chain link pendant adorned with brilliant round solitaire diamonds.'
+    },
+    {
+      id: 'marquise-flora',
+      title: 'MARQUISE FLORA RING',
+      price: 'RS. 41,200',
+      image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80',
+      hoverImage: '/images/winged_victory.jpg',
+      category: 'RINGS',
+      metal: '18K Rose Gold',
+      description: 'Botanical flora ring set with marquise cut diamonds mirroring blooming petals.'
     }
   ];
 
-  const categories = ['ALL', 'RINGS', 'NECKLACES', 'HIGH JEWELRY'];
-
-  const filteredCollection = activeFilter === 'ALL'
-    ? jewelryCollection
-    : jewelryCollection.filter(item => item.category === activeFilter);
-
   return (
-    <section id="collection" className="relative py-28 px-6 md:px-12 bg-[#0A0A0B] text-[#F5F5F0]">
+    <section id="collection" className="relative pt-6 sm:pt-10 pb-20 sm:pb-28 px-4 sm:px-8 lg:px-12 bg-[#0A0B0E] text-[#F5F5F0] select-none z-20">
       
-      {/* Hairline Gridlines */}
-      <div className="absolute inset-0 hairline-grid pointer-events-none opacity-40" />
+      {/* Background Hairline Gridlines */}
+      <div className="absolute inset-0 hairline-grid pointer-events-none opacity-30 z-0" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
-          <div>
-            <div className="flex items-center gap-2 text-xs font-mono text-[#3B6EF5] tracking-[0.3em] uppercase mb-3">
-              <Diamond className="w-3.5 h-3.5" />
-              <span>PERMANENT HIGH JEWELRY VAULT</span>
-            </div>
-            <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight text-white">
-              The Masterpiece <br />
-              <span className="italic font-normal text-[#3B6EF5]">Solitaire Collection</span>
-            </h2>
+        {/* Section Header (Matching Reference Image) */}
+        <div className="text-center max-w-2xl mx-auto mb-7 sm:mb-9">
+          {/* Eyebrow */}
+          <span className="font-poppins text-xs sm:text-[13px] font-medium tracking-[0.28em] text-[#E0B094] uppercase block">
+            OUR COLLECTION
+          </span>
+
+          {/* Sparkle Star Divider Line */}
+          <div className="flex items-center justify-center gap-3 my-2.5 opacity-85">
+            <span className="w-10 sm:w-16 h-[1px] bg-gradient-to-r from-transparent to-[#E0B094]" />
+            <span className="text-[#E0B094] text-[10px]">✦</span>
+            <span className="w-10 sm:w-16 h-[1px] bg-gradient-to-l from-transparent to-[#E0B094]" />
           </div>
 
-          {/* Filter Pills */}
-          <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-full border border-white/10 bg-[#121214]/80 backdrop-blur-md">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveFilter(cat)}
-                className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wider transition-all duration-300 ${
-                  activeFilter === cat
-                    ? 'bg-[#3B6EF5] text-white shadow-[0_0_15px_rgba(59,110,245,0.4)]'
-                    : 'text-[#9B9B9B] hover:text-white'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+          {/* Main Headline */}
+          <h2 className="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-medium tracking-[0.04em] text-[#F5F5F0] leading-tight drop-shadow-[0_2px_15px_rgba(224,176,148,0.2)]">
+            Crafted to Perfection
+          </h2>
         </div>
 
-        {/* Collection Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredCollection.map((item, idx) => (
+        {/* 4-COLUMN PRODUCT GRID WITH DUAL HOVER IMAGE SWITCHING & SMOOTH ZOOM */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-16">
+          {curatedProducts.map((item, idx) => (
             <motion.div
               key={item.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              onClick={() => setSelectedArtwork(item)}
-              className="group cursor-pointer rounded-3xl border border-white/10 bg-[#121214] overflow-hidden hover:border-[#3B6EF5]/60 transition-all duration-500 hover:shadow-[0_10px_40px_rgba(0,0,0,0.8)]"
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.4, delay: idx * 0.08 }}
+              onClick={() => setSelectedProduct(item)}
+              className="group cursor-pointer flex flex-col items-center"
             >
-              {/* Image Container */}
-              <div className="relative aspect-[3/4] overflow-hidden bg-black/70">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover filter contrast-110 group-hover:scale-105 group-hover:contrast-125 transition-all duration-700"
-                />
+              {/* Square Product Image Frame */}
+              <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-[#12131A] border border-white/10 p-2.5 transition-all duration-300 group-hover:border-[#E0B094]/70 group-hover:shadow-[0_12px_35px_rgba(0,0,0,0.85)]">
+                <div className="w-full h-full rounded-xl overflow-hidden bg-black relative">
+                  
+                  {/* Primary Thumbnail Image with Zoom */}
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover filter brightness-105 contrast-110 group-hover:scale-110 transition-transform duration-500"
+                  />
+                  
+                  {/* Secondary Hover Image (Instant Crossfade on Hover if present) */}
+                  {item.hoverImage && (
+                    <img
+                      src={item.hoverImage}
+                      alt={`${item.title} alternate view`}
+                      className="absolute inset-0 w-full h-full object-cover filter brightness-105 contrast-110 opacity-0 group-hover:opacity-100 transition-opacity duration-300 scale-105 group-hover:scale-110 transition-transform duration-500"
+                    />
+                  )}
 
-                {/* Hover Spotlight Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
-
-                {/* Category Badge */}
-                <div className="absolute top-4 left-4 z-10 px-3 py-1 rounded-full border border-white/20 bg-black/60 backdrop-blur-md text-[10px] font-mono tracking-widest text-[#F5F5F0]">
-                  {item.category}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-40 group-hover:opacity-20 transition-opacity z-10" />
+                  
+                  {/* Quick Preview Badge */}
+                  <div className="absolute bottom-3 right-3 p-2 rounded-full bg-black/75 border border-white/20 text-[#E0B094] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+                    <Eye className="w-4 h-4" />
+                  </div>
                 </div>
+              </div>
 
-                {/* Quick View Icon */}
-                <div className="absolute top-4 right-4 z-10 p-2.5 rounded-full border border-white/20 bg-black/60 backdrop-blur-md text-white opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">
-                  <ArrowUpRight className="w-4 h-4 text-[#3B6EF5]" />
-                </div>
-
-                {/* Card Title & Info */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
-                  <span className="text-[10px] font-mono tracking-widest text-[#3B6EF5] uppercase block mb-1">
-                    {item.carat} — {item.metal}
-                  </span>
-                  <h3 className="font-serif text-2xl font-normal text-white group-hover:text-[#3B6EF5] transition-colors leading-tight mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs text-[#9B9B9B] line-clamp-2">
-                    {item.description}
-                  </p>
-                </div>
+              {/* Product Title & Price (Matching Reference Layout) */}
+              <div className="mt-3.5 text-center px-2">
+                <h3 className="font-cinzel font-semibold text-xs sm:text-[13px] tracking-[0.12em] text-[#F5F5F0] uppercase truncate group-hover:text-[#E0B094] transition-colors leading-tight mb-1">
+                  {item.title}
+                </h3>
+                <p className="font-poppins font-medium text-xs sm:text-[13px] text-[#E0B094] tracking-wider">
+                  {item.price}
+                </p>
               </div>
             </motion.div>
           ))}
         </div>
 
+        {/* CENTERED "VIEW ALL PRODUCTS" BUTTON */}
+        <div className="flex justify-center items-center">
+          <button
+            onClick={() => {
+              if (onOpenShop) onOpenShop();
+            }}
+            className="group font-poppins px-9 py-4 rounded-full border border-[#E0B094]/80 hover:border-[#E0B094] bg-black/80 hover:bg-[#E0B094]/15 text-[#E0B094] font-semibold text-xs sm:text-sm tracking-[0.22em] uppercase transition-all duration-300 flex items-center gap-3 shadow-[0_4px_30px_rgba(0,0,0,0.8)]"
+          >
+            <span>VIEW ALL PRODUCTS</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
+          </button>
+        </div>
+
       </div>
 
-      {/* Lightbox Quick-View Modal */}
+      {/* Product Modal Lightbox */}
       <AnimatePresence>
-        {selectedArtwork && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-xl">
+        {selectedProduct && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-xl">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-4xl rounded-3xl border border-white/15 bg-[#121214] overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-12 max-h-[90vh] overflow-y-auto"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="relative w-full max-w-2xl rounded-3xl border border-[#E0B094]/40 bg-[#12131A] p-6 sm:p-8 shadow-2xl overflow-hidden"
             >
               <button
-                onClick={() => setSelectedArtwork(null)}
-                className="absolute top-4 right-4 z-30 p-2.5 rounded-full border border-white/20 bg-black/70 text-white hover:bg-[#3B6EF5] transition-colors"
+                onClick={() => setSelectedProduct(null)}
+                className="absolute top-4 right-4 p-2 rounded-full border border-white/20 bg-black/70 text-white hover:bg-[#E0B094] hover:text-black transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
 
-              <div className="lg:col-span-6 relative aspect-[3/4] bg-black">
-                <img
-                  src={selectedArtwork.image}
-                  alt={selectedArtwork.title}
-                  className="w-full h-full object-cover filter contrast-125"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-              </div>
-
-              <div className="lg:col-span-6 p-8 lg:p-10 flex flex-col justify-between space-y-6">
-                <div>
-                  <div className="flex items-center gap-2 text-xs font-mono text-[#3B6EF5] uppercase tracking-widest mb-2">
-                    <Award className="w-4 h-4" />
-                    <span>HAUTE JOAILLERIE CATALOGUE</span>
-                  </div>
-
-                  <h3 className="font-serif text-3xl sm:text-4xl font-normal text-white mb-2">
-                    {selectedArtwork.title}
-                  </h3>
-
-                  <p className="font-serif italic text-[#9B9B9B] text-lg mb-6">
-                    {selectedArtwork.atelier} — {selectedArtwork.carat}
-                  </p>
-
-                  <p className="text-sm text-[#9B9B9B] leading-relaxed mb-6">
-                    {selectedArtwork.description}
-                  </p>
-
-                  <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/10">
-                    <div>
-                      <span className="text-[10px] font-mono text-[#9B9B9B] uppercase block">GEM GRADE</span>
-                      <span className="text-xs font-semibold text-white mt-0.5 block">{selectedArtwork.clarity}</span>
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-mono text-[#9B9B9B] uppercase block">PRECIOUS METAL</span>
-                      <span className="text-xs font-semibold text-white mt-0.5 block">{selectedArtwork.metal}</span>
-                    </div>
-                  </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
+                <div className="aspect-square rounded-2xl overflow-hidden bg-black border border-white/10">
+                  <img
+                    src={selectedProduct.image}
+                    alt={selectedProduct.title}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
 
-                <div className="pt-6 border-t border-white/10 flex items-center justify-between">
-                  <span className="text-xs font-mono text-[#9B9B9B]">MAISON LUXE ARCHIVE FILE</span>
+                <div className="flex flex-col justify-between h-full">
+                  <div>
+                    <span className="text-[10px] font-poppins font-semibold text-[#E0B094] tracking-widest uppercase block mb-1">
+                      {selectedProduct.category} — {selectedProduct.metal}
+                    </span>
+                    <h3 className="font-cinzel text-xl sm:text-2xl font-bold text-white mb-2">
+                      {selectedProduct.title}
+                    </h3>
+                    <p className="font-poppins text-lg font-bold text-[#E0B094] mb-4">
+                      {selectedProduct.price}
+                    </p>
+                    <p className="font-open-sans text-xs text-[#9B9EA7] leading-relaxed mb-6">
+                      {selectedProduct.description}
+                    </p>
+                  </div>
+
                   <button
-                    onClick={() => setSelectedArtwork(null)}
-                    className="px-6 py-2.5 rounded-full bg-[#3B6EF5] text-white text-xs font-semibold tracking-wider hover:bg-[#2A57D8] transition-colors"
+                    onClick={() => {
+                      setSelectedProduct(null);
+                      if (onOpenShop) onOpenShop();
+                    }}
+                    className="w-full py-3 rounded-full bg-[#E0B094] hover:bg-[#F7E09A] text-black font-poppins font-bold text-xs tracking-widest uppercase transition-colors flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(224,176,148,0.3)]"
                   >
-                    CLOSE PREVIEW
+                    <span>BUY NOW / INQUIRE</span>
+                    <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
               </div>
