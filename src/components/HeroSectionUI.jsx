@@ -139,18 +139,18 @@ export default function HeroSectionUI({ onOpenShop, onOpenSignup }) {
 
         </div>
 
-        {/* Right Side Content (Span 5) — REAL 3D GOLD RING COMPACT FRAME WITH MARGINS */}
-        <div className="lg:col-span-5 relative flex items-center justify-center h-[340px] sm:h-[400px] lg:h-[440px]">
+        {/* Right Side Content (Span 6) — ENLARGED 3D GOLD RING VISUAL CONTAINER (+18-20%) */}
+        <div className="lg:col-span-6 relative flex items-center justify-center h-[390px] sm:h-[460px] lg:h-[500px]">
           
-          {/* Halo Glow Backdrop */}
-          <div className="absolute w-[240px] sm:w-[280px] lg:w-[320px] h-[240px] sm:h-[280px] lg:h-[320px] rounded-full bg-radial from-white/20 via-[#D4AF37]/15 to-transparent blur-2xl pointer-events-none" />
+          {/* Halo Glow Backdrop (+18-20% larger) */}
+          <div className="absolute w-[335px] sm:w-[395px] lg:w-[448px] h-[335px] sm:h-[395px] lg:h-[448px] rounded-full bg-radial from-white/20 via-[#D4AF37]/15 to-transparent blur-2xl pointer-events-none" />
 
-          {/* Halo White Ring Arc */}
-          <div className="absolute w-[220px] sm:w-[260px] lg:w-[300px] h-[220px] sm:h-[260px] lg:h-[300px] rounded-full border border-white/20 shadow-[0_0_40px_rgba(255,255,255,0.2)] pointer-events-none animate-halo-pulse" />
+          {/* Halo White Ring Arc (+18-20% larger) */}
+          <div className="absolute w-[305px] sm:w-[365px] lg:w-[418px] h-[305px] sm:h-[365px] lg:h-[418px] rounded-full border border-white/20 shadow-[0_0_40px_rgba(255,255,255,0.2)] pointer-events-none animate-halo-pulse" />
 
-          {/* Compact 3D Canvas Frame (260px - 320px) — Fits comfortably with ample margin */}
-          <div className="relative z-10 w-[240px] sm:w-[280px] lg:w-[320px] h-[240px] sm:h-[280px] lg:h-[320px]">
-            <Ring3DCanvas />
+          {/* 3D Canvas Frame (+18-20% larger: 335px -> 448px) — Single Ring, No Cycling */}
+          <div className="relative z-10 w-[335px] sm:w-[395px] lg:w-[448px] h-[335px] sm:h-[395px] lg:h-[448px]">
+            <Ring3DCanvas activeId="public_ring_model" />
 
             {/* Pulsing Hotspot Dots */}
             {hotspots.map((spot) => (
