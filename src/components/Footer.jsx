@@ -29,9 +29,9 @@ export default function Footer({ onOpenTickets }) {
             {/* Logo */}
             <div className="flex items-center gap-3">
               <img 
-                src="/logo.png" 
+                src="/diamora_logo.png" 
                 alt="Diamora Logo" 
-                className="h-12 w-auto object-contain mix-blend-screen filter brightness-110 contrast-125" 
+                className="h-20 sm:h-24 md:h-28 w-auto object-contain" 
                 onError={(e) => {
                   e.target.style.display = 'none';
                   e.target.nextSibling.style.display = 'flex';

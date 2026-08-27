@@ -35,8 +35,11 @@ export default function HeroSectionUI({ onOpenShop, onOpenSignup }) {
   ];
 
   return (
-    <div className="open-sans relative w-full min-h-screen bg-[#0C0D10] text-[#F5F5F0] overflow-hidden flex flex-col justify-between select-none">
+    <div className="open-sans relative w-full min-h-screen lg:h-screen bg-[#0C0D10] text-[#F5F5F0] overflow-hidden flex flex-col justify-between select-none">
       
+      {/* Background Hairline Gridlines */}
+      <div className="absolute inset-0 hairline-grid pointer-events-none opacity-25 z-0" />
+
       {/* Decorative Organic Layered Background Wavy Artwork */}
       <div className="absolute inset-0 pointer-events-none z-0">
         
@@ -80,7 +83,7 @@ export default function HeroSectionUI({ onOpenShop, onOpenSignup }) {
         </div>
       </div>
 
-      {/* FLOATING 3D SPHERES (GENTLE LOOPING BOBBING ANIMATION) */}
+      {/* FLOATING 3D SPHERES */}
       <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden">
         <div className="absolute top-10 right-6 lg:right-16 animate-float-1">
           <div className="w-16 h-16 lg:w-24 lg:h-24 rounded-full bg-gradient-to-br from-[#404552] via-[#1c1e24] to-[#08090b] shadow-[10px_15px_30px_rgba(0,0,0,0.85),inset_-4px_-4px_10px_rgba(0,0,0,0.9),inset_4px_4px_10px_rgba(255,255,255,0.2)]" />
@@ -95,11 +98,14 @@ export default function HeroSectionUI({ onOpenShop, onOpenSignup }) {
         </div>
       </div>
 
-      {/* HERO MAIN CONTENT SECTION */}
-      <main className="relative z-20 max-w-7xl w-full mx-auto px-6 sm:px-12 pt-28 sm:pt-32 pb-12 my-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      {/* TOP NAVBAR OFFSET SPACER (~64px) */}
+      <div className="h-14 sm:h-16 shrink-0 pointer-events-none" />
+
+      {/* HERO MAIN CONTENT SECTION (PERFECTLY CENTERED IN REMAINING VIEWPORT) */}
+      <main className="relative z-20 max-w-7xl w-full mx-auto px-6 sm:px-12 my-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center pt-1 pb-1">
         
         {/* Left Side Content (Span 6) */}
-        <div className="lg:col-span-6 flex flex-col justify-center space-y-5 max-w-xl">
+        <div className="lg:col-span-6 flex flex-col justify-center space-y-3.5 max-w-xl">
           
           {/* Eyebrow Header */}
           <span className="font-poppins text-xs sm:text-sm font-medium tracking-[0.28em] text-[#E0B094] uppercase">
@@ -108,12 +114,12 @@ export default function HeroSectionUI({ onOpenShop, onOpenSignup }) {
 
           {/* Main Headline */}
           <h1 className="font-cinzel text-5xl sm:text-6xl lg:text-7xl font-normal leading-[1.08] tracking-[0.08em]">
-            <span className="bg-gradient-to-r from-[#F7E09A] via-[#D4AF37] to-[#C59B27] bg-clip-text text-transparent block drop-shadow-[0_2px_15px_rgba(212,175,55,0.3)]">A PROMISE</span>
+            <span className="block drop-shadow-[0_2px_15px_rgba(212,175,55,0.3)]"><span className="text-white">A</span> <span className="bg-gradient-to-r from-[#F7E09A] via-[#D4AF37] to-[#C59B27] bg-clip-text text-transparent">PROMISE</span></span>
             <span className="text-white block">FOREVER</span>
           </h1>
 
           {/* Elegant Line Divider with Center Luxury Sparkle Star */}
-          <div className="flex items-center gap-3.5 w-52 py-2">
+          <div className="flex items-center gap-3.5 w-48 py-1">
             <div className="h-[1px] bg-gradient-to-r from-[#E0B094]/70 to-[#E0B094]/20 flex-1" />
             <svg className="w-3.5 h-3.5 text-[#E0B094] fill-current shrink-0 opacity-95 drop-shadow-[0_0_6px_rgba(224,176,148,0.5)]" viewBox="0 0 24 24">
               <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
@@ -127,10 +133,10 @@ export default function HeroSectionUI({ onOpenShop, onOpenSignup }) {
           </p>
 
           {/* CTA Button */}
-          <div className="pt-2 flex items-center gap-4">
+          <div className="pt-1 flex items-center">
             <button
               onClick={onOpenShop}
-              className="group font-poppins px-7 py-3.5 border border-[#E0B094]/70 hover:border-[#E0B094] bg-black/40 hover:bg-[#E0B094]/10 text-[#E0B094] font-semibold text-xs tracking-[0.22em] uppercase transition-all duration-300 flex items-center gap-3 shadow-[0_4px_25px_rgba(0,0,0,0.5)]"
+              className="group font-poppins px-7 py-3.5 border border-[#E0B094]/70 hover:border-[#E0B094] bg-black/40 hover:bg-[#E0B094]/10 text-[#E0B094] font-semibold text-xs tracking-[0.22em] uppercase transition-all duration-300 flex items-center gap-3 shadow-[0_4px_25px_rgba(0,0,0,0.5)] shrink-0 w-fit"
             >
               <span>EXPLORE COLLECTION</span>
               <span className="text-sm group-hover:translate-x-1 transition-transform">→</span>
@@ -140,16 +146,10 @@ export default function HeroSectionUI({ onOpenShop, onOpenSignup }) {
         </div>
 
         {/* Right Side Content (Span 6) — REAL 3D GOLD RING FRAME */}
-        <div className="lg:col-span-6 relative flex items-center justify-center h-[460px] sm:h-[540px] lg:h-[620px]">
+        <div className="lg:col-span-6 relative flex items-center justify-center h-[340px] sm:h-[420px] lg:h-[480px]">
           
-          {/* Halo Glow Backdrop — Scaled background circle */}
-          <div className="absolute w-[260px] sm:w-[320px] lg:w-[380px] h-[260px] sm:h-[320px] lg:h-[380px] rounded-full bg-radial from-white/20 via-[#D4AF37]/15 to-transparent blur-2xl pointer-events-none" />
-
-          {/* Halo White Ring Arc — Scaled round circle around ring */}
-          <div className="absolute w-[230px] sm:w-[280px] lg:w-[330px] h-[230px] sm:h-[280px] lg:h-[330px] rounded-full border border-white/25 shadow-[0_0_30px_rgba(255,255,255,0.25)] pointer-events-none animate-halo-pulse" />
-
           {/* 3D Canvas Frame — Scaled 3D visual container */}
-          <div className="relative z-10 w-[420px] sm:w-[520px] lg:w-[600px] h-[420px] sm:h-[520px] lg:h-[600px]">
+          <div className="relative z-10 w-[360px] sm:w-[460px] lg:w-[500px] h-[360px] sm:h-[460px] lg:h-[500px]">
             <Ring3DCanvas activeId="public_ring_model" />
 
             {/* Pulsing Hotspot Dots */}
@@ -185,8 +185,8 @@ export default function HeroSectionUI({ onOpenShop, onOpenSignup }) {
 
       </main>
 
-      {/* FOOTER */}
-      <footer className="relative z-30 max-w-7xl w-full mx-auto px-6 sm:px-12 py-6 flex items-center justify-between text-[#808490]">
+      {/* BOTTOM BAR (WITH CLEAN BOTTOM GAP ABOVE NEXT SECTION) */}
+      <footer className="relative z-30 max-w-7xl w-full mx-auto px-6 sm:px-12 pt-1 pb-6 shrink-0 flex items-center justify-between text-[#808490]">
         <div className="flex items-center space-x-6 text-white/80">
           <a href="#" className="hover:text-[#D4AF37] transition-colors" title="Twitter">
             <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -212,10 +212,6 @@ export default function HeroSectionUI({ onOpenShop, onOpenSignup }) {
             </svg>
           </a>
         </div>
-
-        <span className="text-[11px] font-mono text-[#606470] hidden sm:inline">
-          © 2026 YOURSHOPLOGO. ALL RIGHTS RESERVED.
-        </span>
       </footer>
 
     </div>

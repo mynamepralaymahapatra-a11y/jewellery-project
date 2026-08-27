@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Search, User, ShoppingBag, Menu, X } from 'lucide-react';
 
-export default function Navbar({ 
-  onOpenShop, 
-  onOpenSignup 
+export default function Navbar({
+  onOpenShop,
+  onOpenSignup
 }) {
   const [scrolled, setScrolled] = useState(false);
   const [activeTab, setActiveTab] = useState('HOME');
@@ -44,15 +44,14 @@ export default function Navbar({
   };
 
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-poppins ${
-        scrolled 
-          ? 'bg-[#0C0D10]/90 backdrop-blur-md border-b border-white/10 shadow-2xl py-1.5 sm:py-2' 
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 font-poppins transition-all duration-300 ${scrolled
+          ? 'bg-[#0C0D10]/95 backdrop-blur-md border-b border-white/10 shadow-2xl py-2 sm:py-2.5'
           : 'bg-transparent py-3 sm:py-4'
-      }`}
+        }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between">
-        
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between relative h-12">
+
         {/* LEFT NAV MENU (DESKTOP) */}
         <nav className="hidden md:flex items-center space-x-6 lg:space-x-10 flex-1 justify-start">
           {leftNavItems.map((item) => {
@@ -62,9 +61,8 @@ export default function Navbar({
                 key={item.id}
                 href={item.href}
                 onClick={(e) => { e.preventDefault(); handleNavClick(item.id, item.href); }}
-                className={`relative py-1 text-xs font-medium tracking-[0.2em] transition-colors duration-300 uppercase ${
-                  isActive ? 'text-[#E0B094]' : 'text-[#C5C8D0] hover:text-[#E0B094]'
-                }`}
+                className={`relative py-1 text-xs font-medium tracking-[0.2em] transition-colors duration-300 uppercase ${isActive ? 'text-[#E0B094]' : 'text-[#C5C8D0] hover:text-[#E0B094]'
+                  }`}
               >
                 {item.label}
                 {isActive && (
@@ -75,37 +73,37 @@ export default function Navbar({
           })}
         </nav>
 
-        {/* CENTER LOGO (ROUNDED GLASS FRAME WITH SMOOTH BACKGROUND MELTING) */}
-        <div className="flex-1 md:flex-initial flex items-center justify-center py-0.5 px-3">
-          <a 
-            href="#home" 
+        {/* CENTER LOGO (INDEPENDENT ABSOLUTE POSITIONING WITH SMOOTH SCROLL SCALE) */}
+        <div className={`absolute left-1/2 -translate-x-1/2 z-30 pointer-events-auto transition-all duration-300 ease-in-out ${scrolled
+            ? 'top-[calc(50%+9px)] -translate-y-1/2'
+            : 'top-1/2 -translate-y-[30%]'
+          }`}>
+          <a
+            href="#home"
             onClick={(e) => { e.preventDefault(); handleNavClick('HOME', '#home'); }}
             className="flex items-center justify-center group"
           >
-            <div className="relative px-2.5 py-1 rounded-2xl bg-black/40 border border-[#D4AF37]/25 shadow-[0_0_15px_rgba(212,175,55,0.12)] backdrop-blur-md flex items-center justify-center transition-all duration-300 group-hover:border-[#D4AF37]/50 group-hover:shadow-[0_0_20px_rgba(212,175,55,0.25)]">
-              <img 
-                src="/logo.png" 
-                alt="Diamora Logo" 
-                className={`w-auto object-contain transition-all duration-300 mix-blend-screen filter brightness-110 contrast-125 ${
-                  scrolled 
-                    ? 'h-6 sm:h-7 md:h-8 max-w-[120px] sm:max-w-[150px]' 
-                    : 'h-8 sm:h-9 md:h-10 max-w-[140px] sm:max-w-[180px]'
-                }`} 
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.nextSibling.style.display = 'block';
-                }}
-              />
-              <span className="font-cinzel text-lg sm:text-xl font-bold tracking-[0.25em] text-[#D4AF37] hidden uppercase">
-                DIAMORA
-              </span>
-            </div>
+            <img
+              src="/diamora_logo.png"
+              alt="Diamora Logo"
+              className={`w-auto object-contain transition-all duration-300 ease-in-out filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)] ${scrolled
+                  ? 'h-16 sm:h-20 md:h-24 max-w-[280px] sm:max-w-[360px]'
+                  : 'h-[107px] sm:h-[123px] md:h-[139px] max-w-[380px] sm:max-w-[460px]'
+                }`}
+              onError={(e) => {
+                e.target.style.display = 'none';
+                e.target.nextSibling.style.display = 'block';
+              }}
+            />
+            <span className="font-cinzel text-lg sm:text-xl font-bold tracking-[0.25em] text-[#D4AF37] hidden uppercase">
+              DIAMORA
+            </span>
           </a>
         </div>
 
         {/* RIGHT NAV MENU & UTILITY ICONS (DESKTOP) */}
         <div className="hidden md:flex items-center justify-end flex-1 space-x-6 lg:space-x-8">
-          
+
           <nav className="flex items-center space-x-6 lg:space-x-8">
             {rightNavItems.map((item) => {
               const isActive = activeTab === item.id;
@@ -114,9 +112,8 @@ export default function Navbar({
                   key={item.id}
                   href={item.href}
                   onClick={(e) => { e.preventDefault(); handleNavClick(item.id, item.href); }}
-                  className={`relative py-1 text-xs font-medium tracking-[0.2em] transition-colors duration-300 uppercase ${
-                    isActive ? 'text-[#E0B094]' : 'text-[#C5C8D0] hover:text-[#E0B094]'
-                  }`}
+                  className={`relative py-1 text-xs font-medium tracking-[0.2em] transition-colors duration-300 uppercase ${isActive ? 'text-[#E0B094]' : 'text-[#C5C8D0] hover:text-[#E0B094]'
+                    }`}
                 >
                   {item.label}
                   {isActive && (
@@ -129,9 +126,9 @@ export default function Navbar({
 
           {/* UTILITY ICONS: Search, User, Cart */}
           <div className="flex items-center space-x-4 border-l border-white/10 pl-6 text-[#F5F5F0]">
-            
+
             {/* Search Icon */}
-            <button 
+            <button
               className="p-1.5 hover:text-[#E0B094] transition-colors focus:outline-none"
               title="Search"
             >
@@ -139,7 +136,7 @@ export default function Navbar({
             </button>
 
             {/* User Account Icon */}
-            <button 
+            <button
               onClick={onOpenSignup}
               className="p-1.5 hover:text-[#E0B094] transition-colors focus:outline-none"
               title="Account"
@@ -148,7 +145,7 @@ export default function Navbar({
             </button>
 
             {/* Shopping Bag Icon with Badge Counter */}
-            <button 
+            <button
               onClick={onOpenShop}
               className="relative p-1.5 hover:text-[#E0B094] transition-colors focus:outline-none"
               title="Shopping Cart"
@@ -165,9 +162,9 @@ export default function Navbar({
 
         {/* MOBILE MENU TOGGLE BUTTON */}
         <div className="md:hidden flex items-center space-x-3">
-          
+
           {/* Shopping Bag Icon Mobile */}
-          <button 
+          <button
             onClick={onOpenShop}
             className="relative p-1.5 text-[#F5F5F0] hover:text-[#E0B094]"
           >
@@ -191,16 +188,15 @@ export default function Navbar({
       {/* MOBILE DRAWER */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-[#0C0D10]/95 backdrop-blur-xl border-t border-white/10 px-6 py-6 mt-3 shadow-2xl space-y-5 animate-fadeIn">
-          
+
           <div className="flex flex-col space-y-4">
             {[...leftNavItems, ...rightNavItems].map((item) => (
               <a
                 key={item.id}
                 href={item.href}
                 onClick={(e) => { e.preventDefault(); handleNavClick(item.id, item.href); }}
-                className={`text-left text-xs font-semibold tracking-[0.2em] py-2 border-b border-white/5 uppercase ${
-                  activeTab === item.id ? 'text-[#E0B094]' : 'text-[#C5C8D0]'
-                }`}
+                className={`text-left text-xs font-semibold tracking-[0.2em] py-2 border-b border-white/5 uppercase ${activeTab === item.id ? 'text-[#E0B094]' : 'text-[#C5C8D0]'
+                  }`}
               >
                 {item.label}
               </a>
@@ -208,13 +204,13 @@ export default function Navbar({
           </div>
 
           <div className="flex items-center justify-around pt-3 border-t border-white/10 text-[#F5F5F0]">
-            <button 
+            <button
               className="flex items-center gap-2 text-xs text-[#C5C8D0] hover:text-[#E0B094]"
             >
               <Search className="w-4 h-4" />
               <span>SEARCH</span>
             </button>
-            <button 
+            <button
               onClick={onOpenSignup}
               className="flex items-center gap-2 text-xs text-[#C5C8D0] hover:text-[#E0B094]"
             >
