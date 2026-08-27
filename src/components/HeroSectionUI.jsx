@@ -98,8 +98,8 @@ export default function HeroSectionUI({ onOpenShop, onOpenSignup }) {
       {/* HERO MAIN CONTENT SECTION */}
       <main className="relative z-20 max-w-7xl w-full mx-auto px-6 sm:px-12 pt-28 sm:pt-32 pb-12 my-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
-        {/* Left Side Content (Span 7) */}
-        <div className="lg:col-span-7 flex flex-col justify-center space-y-5 max-w-xl">
+        {/* Left Side Content (Span 6) */}
+        <div className="lg:col-span-6 flex flex-col justify-center space-y-5 max-w-xl">
           
           {/* Eyebrow Header */}
           <span className="font-poppins text-xs sm:text-sm font-medium tracking-[0.28em] text-[#E0B094] uppercase">
@@ -139,25 +139,25 @@ export default function HeroSectionUI({ onOpenShop, onOpenSignup }) {
 
         </div>
 
-        {/* Right Side Content (Span 5) — REAL 3D GOLD RING COMPACT FRAME WITH MARGINS */}
-        <div className="lg:col-span-5 relative flex items-center justify-center h-[340px] sm:h-[400px] lg:h-[440px]">
+        {/* Right Side Content (Span 6) — REAL 3D GOLD RING FRAME */}
+        <div className="lg:col-span-6 relative flex items-center justify-center h-[460px] sm:h-[540px] lg:h-[620px]">
           
-          {/* Halo Glow Backdrop */}
-          <div className="absolute w-[240px] sm:w-[280px] lg:w-[320px] h-[240px] sm:h-[280px] lg:h-[320px] rounded-full bg-radial from-white/20 via-[#D4AF37]/15 to-transparent blur-2xl pointer-events-none" />
+          {/* Halo Glow Backdrop — Scaled background circle */}
+          <div className="absolute w-[260px] sm:w-[320px] lg:w-[380px] h-[260px] sm:h-[320px] lg:h-[380px] rounded-full bg-radial from-white/20 via-[#D4AF37]/15 to-transparent blur-2xl pointer-events-none" />
 
-          {/* Halo White Ring Arc */}
-          <div className="absolute w-[220px] sm:w-[260px] lg:w-[300px] h-[220px] sm:h-[260px] lg:h-[300px] rounded-full border border-white/20 shadow-[0_0_40px_rgba(255,255,255,0.2)] pointer-events-none animate-halo-pulse" />
+          {/* Halo White Ring Arc — Scaled round circle around ring */}
+          <div className="absolute w-[230px] sm:w-[280px] lg:w-[330px] h-[230px] sm:h-[280px] lg:h-[330px] rounded-full border border-white/25 shadow-[0_0_30px_rgba(255,255,255,0.25)] pointer-events-none animate-halo-pulse" />
 
-          {/* Compact 3D Canvas Frame (260px - 320px) — Fits comfortably with ample margin */}
-          <div className="relative z-10 w-[240px] sm:w-[280px] lg:w-[320px] h-[240px] sm:h-[280px] lg:h-[320px]">
-            <Ring3DCanvas />
+          {/* 3D Canvas Frame — Scaled 3D visual container */}
+          <div className="relative z-10 w-[420px] sm:w-[520px] lg:w-[600px] h-[420px] sm:h-[520px] lg:h-[600px]">
+            <Ring3DCanvas activeId="public_ring_model" />
 
             {/* Pulsing Hotspot Dots */}
             {hotspots.map((spot) => (
               <div
                 key={spot.id}
                 style={{ top: spot.top, left: spot.left }}
-                className="absolute z-20"
+                className="absolute z-20 opacity-0 pointer-events-none"
               >
                 <button
                   onClick={() => setActiveHotspot(activeHotspot === spot.id ? null : spot.id)}

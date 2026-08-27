@@ -301,18 +301,18 @@ export default function HeroScrollSection({
             </div>
 
             {/* Right Column (Span 6) — REAL WEBGL 3D ROTATING DIAMOND RING */}
-            <div className="lg:col-span-6 relative flex items-center justify-center h-[350px] sm:h-[450px] lg:h-[550px]">
+            <div className="lg:col-span-6 relative flex items-center justify-center h-[460px] sm:h-[540px] lg:h-[620px]">
               
-              {/* Halo Glow Spotlight Ring Backdrop */}
+              {/* Halo Glow Spotlight Ring Backdrop — Scaled background circle */}
               <div 
-                className={`halo-ring w-[260px] sm:w-[360px] lg:w-[440px] h-[260px] sm:h-[360px] lg:h-[440px] transition-all duration-700 animate-halo-pulse pointer-events-none ${getHaloClass()}`}
+                className={`halo-ring w-[240px] sm:w-[300px] lg:w-[360px] h-[240px] sm:h-[300px] lg:h-[360px] transition-all duration-700 animate-halo-pulse pointer-events-none ${getHaloClass()}`}
               />
 
-              {/* Halo Outer Dashed Arc */}
-              <div className="absolute w-[310px] sm:w-[420px] lg:w-[520px] h-[310px] sm:h-[420px] lg:h-[520px] rounded-full border border-white/10 animate-halo-spin pointer-events-none opacity-40 border-dashed" />
+              {/* Halo Outer Dashed Arc — Scaled outer circle */}
+              <div className="absolute w-[270px] sm:w-[340px] lg:w-[400px] h-[270px] sm:h-[340px] lg:h-[400px] rounded-full border border-white/10 animate-halo-spin pointer-events-none opacity-40 border-dashed" />
 
               {/* Three.js 3D WebGL Canvas Container (Pinned in X/Y position while spinning in 3D) */}
-              <div className="relative z-10 w-[280px] sm:w-[360px] lg:w-[440px] h-[320px] sm:h-[400px] lg:h-[460px]">
+              <div className="relative z-10 w-[400px] sm:w-[500px] lg:w-[580px] h-[400px] sm:h-[500px] lg:h-[580px]">
                 <Ring3DCanvas scrollProgress={scrollProgress} haloMood={haloMood} />
 
                 {/* Hotspot Dots anchored to key points on the Ring Stage */}
@@ -320,7 +320,7 @@ export default function HeroScrollSection({
                   <div
                     key={spot.id}
                     style={{ top: spot.top, left: spot.left }}
-                    className="absolute z-20"
+                    className="absolute z-20 opacity-0 pointer-events-none"
                   >
                     <button
                       onClick={() => setActiveHotspot(activeHotspot === spot.id ? null : spot.id)}
