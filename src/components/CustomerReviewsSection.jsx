@@ -1,119 +1,159 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Star } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function CustomerReviewsSection() {
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [withTransition, setWithTransition] = useState(true);
+  const [stepWidth, setStepWidth] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const containerRef = useRef(null);
 
-  const reviewsPages = [
-    [
-      {
-        id: 'rev-1',
-        name: 'Ananya S.',
-        location: 'Kolkata',
-        rating: 5,
-        quote: 'The solitaire ring from Diamora is beyond beautiful. The sparkle, the quality, the packaging - absolutely perfect!'
-      },
-      {
-        id: 'rev-2',
-        name: 'Riddhima M.',
-        location: 'Mumbai',
-        rating: 5,
-        quote: 'Exceptional craftsmanship and such elegant designs. Diamora is now my go-to for every special occasion.'
-      },
-      {
-        id: 'rev-3',
-        name: 'Pooja T.',
-        location: 'Bangalore',
-        rating: 5,
-        quote: 'From selection to delivery, everything was seamless. The diamond quality is absolutely certified and genuine.'
-      }
-    ],
-    [
-      {
-        id: 'rev-4',
-        name: 'Jamuna B.',
-        location: 'Chennai',
-        rating: 5,
-        quote: 'The service rendered by the team is excellent. They answered all my doubts with patience and helped us pick the ideal ring.'
-      },
-      {
-        id: 'rev-5',
-        name: 'Vidhya S.',
-        location: 'Hyderabad',
-        rating: 5,
-        quote: 'Loved their collections! Bought a lovely diamond nosepin, their response and service is top notch.'
-      },
-      {
-        id: 'rev-6',
-        name: 'Lalitha K.',
-        location: 'Delhi',
-        rating: 5,
-        quote: 'Nice, patient and pleasant service. We acquired great knowledge about certified GIA diamonds and look forward to buying again.'
-      }
-    ],
-    [
-      {
-        id: 'rev-7',
-        name: 'Devika R.',
-        location: 'Ahmedabad',
-        rating: 5,
-        quote: 'The rose gold finish with micro-pavé diamonds is stunning. Delivered on time with complete certification documents.'
-      },
-      {
-        id: 'rev-8',
-        name: 'Shreya P.',
-        location: 'Pune',
-        rating: 5,
-        quote: 'Bought our anniversary solitaire earrings here. The brilliance under sunlight is unreal, truly pure haute joaillerie.'
-      },
-      {
-        id: 'rev-9',
-        name: 'Meera N.',
-        location: 'Jaipur',
-        rating: 5,
-        quote: 'Unmatched elegance and customer care. The custom sizing was done flawlessly within 48 hours.'
-      }
-    ],
-    [
-      {
-        id: 'rev-10',
-        name: 'Ishita V.',
-        location: 'Chandigarh',
-        rating: 5,
-        quote: 'Extremely polite staff and transparent pricing. The diamond clarity and cut exceeded all my expectations.'
-      },
-      {
-        id: 'rev-11',
-        name: 'Kirti G.',
-        location: 'Kochi',
-        rating: 5,
-        quote: 'Pure luxury experience from unboxing to wearing. Every piece reflects master artisan expertise.'
-      },
-      {
-        id: 'rev-12',
-        name: 'Sneha B.',
-        location: 'Surat',
-        rating: 5,
-        quote: 'Beautiful Ceylon sapphire band! The color tone is deep royal blue, framed by crisp white diamonds.'
-      }
-    ]
+  const reviews = [
+    {
+      id: 'rev-1',
+      name: 'Ananya S.',
+      location: 'Kolkata',
+      rating: 5,
+      quote: 'The solitaire ring from Diamora is beyond beautiful. The sparkle, the quality, the packaging - absolutely perfect!'
+    },
+    {
+      id: 'rev-2',
+      name: 'Riddhima M.',
+      location: 'Mumbai',
+      rating: 5,
+      quote: 'Exceptional craftsmanship and such elegant designs. Diamora is now my go-to for every special occasion.'
+    },
+    {
+      id: 'rev-3',
+      name: 'Pooja T.',
+      location: 'Bangalore',
+      rating: 5,
+      quote: 'From selection to delivery, everything was seamless. The diamond quality is absolutely certified and genuine.'
+    },
+    {
+      id: 'rev-4',
+      name: 'Jamuna B.',
+      location: 'Chennai',
+      rating: 5,
+      quote: 'The service rendered by the team is excellent. They answered all my doubts with patience and helped us pick the ideal ring.'
+    },
+    {
+      id: 'rev-5',
+      name: 'Vidhya S.',
+      location: 'Hyderabad',
+      rating: 5,
+      quote: 'Loved their collections! Bought a lovely diamond nosepin, their response and service is top notch.'
+    },
+    {
+      id: 'rev-6',
+      name: 'Lalitha K.',
+      location: 'Delhi',
+      rating: 5,
+      quote: 'Nice, patient and pleasant service. We acquired great knowledge about certified GIA diamonds and look forward to buying again.'
+    },
+    {
+      id: 'rev-7',
+      name: 'Devika R.',
+      location: 'Ahmedabad',
+      rating: 5,
+      quote: 'The rose gold finish with micro-pavé diamonds is stunning. Delivered on time with complete certification documents.'
+    },
+    {
+      id: 'rev-8',
+      name: 'Shreya P.',
+      location: 'Pune',
+      rating: 5,
+      quote: 'Bought our anniversary solitaire earrings here. The brilliance under sunlight is unreal, truly pure haute joaillerie.'
+    },
+    {
+      id: 'rev-9',
+      name: 'Meera N.',
+      location: 'Jaipur',
+      rating: 5,
+      quote: 'Unmatched elegance and customer care. The custom sizing was done flawlessly within 48 hours.'
+    },
+    {
+      id: 'rev-10',
+      name: 'Ishita V.',
+      location: 'Chandigarh',
+      rating: 5,
+      quote: 'Extremely polite staff and transparent pricing. The diamond clarity and cut exceeded all my expectations.'
+    },
+    {
+      id: 'rev-11',
+      name: 'Kirti G.',
+      location: 'Kochi',
+      rating: 5,
+      quote: 'Pure luxury experience from unboxing to wearing. Every piece reflects master artisan expertise.'
+    },
+    {
+      id: 'rev-12',
+      name: 'Sneha B.',
+      location: 'Surat',
+      rating: 5,
+      quote: 'Beautiful Ceylon sapphire band! The color tone is deep royal blue, framed by crisp white diamonds.'
+    }
   ];
 
-  // Auto-shift Right to Left every 3 seconds (3000ms)
+  // Append first 3 items for infinite wrap-around
+  const extendedReviews = [...reviews, ...reviews.slice(0, 3)];
+
+  // Measure container and set responsive card width (1 on mobile, 3 on desktop)
+  useEffect(() => {
+    const updateWidth = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      if (containerRef.current) {
+        const width = containerRef.current.offsetWidth;
+        const gap = 24; // 1.5rem gap
+        const visible = mobile ? 1 : 3;
+        setStepWidth((width + gap) / visible);
+      }
+    };
+
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
+
+  // Auto-shift ONE BY ONE from Right to Left every 3 seconds
   useEffect(() => {
     if (isPaused) return;
 
     const timer = setInterval(() => {
-      setCurrentPage((prev) => (prev + 1) % reviewsPages.length);
+      setWithTransition(true);
+      setCurrentIndex((prev) => prev + 1);
     }, 3000);
 
     return () => clearInterval(timer);
-  }, [isPaused, reviewsPages.length]);
+  }, [isPaused]);
+
+  // Infinite loop reset
+  useEffect(() => {
+    if (currentIndex === reviews.length) {
+      const wrapTimer = setTimeout(() => {
+        setWithTransition(false);
+        setCurrentIndex(0);
+      }, 750);
+
+      return () => clearTimeout(wrapTimer);
+    }
+  }, [currentIndex, reviews.length]);
+
+  const handlePrev = () => {
+    setWithTransition(true);
+    setCurrentIndex((prev) => (prev <= 0 ? reviews.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setWithTransition(true);
+    setCurrentIndex((prev) => prev + 1);
+  };
 
   return (
-    <section className="relative py-20 sm:py-28 px-4 sm:px-8 lg:px-12 bg-[#08090C] text-[#F5F5F0] select-none z-20 overflow-hidden">
+    <section className="relative pt-16 sm:pt-24 pb-8 sm:pb-12 px-4 sm:px-8 lg:px-12 bg-[#0C0D10] text-[#F5F5F0] select-none z-20 overflow-hidden">
       
       {/* Background Hairline Gridlines */}
       <div className="absolute inset-0 hairline-grid pointer-events-none opacity-25 z-0" />
@@ -121,7 +161,7 @@ export default function CustomerReviewsSection() {
 
       <div className="max-w-6xl mx-auto relative z-10">
         
-        {/* SECTION HEADER (MATCHING REFERENCE IMAGE) */}
+        {/* CENTERED SECTION HEADER */}
         <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-16">
           {/* Eyebrow with Side Lines */}
           <div className="flex items-center justify-center gap-3 mb-2">
@@ -138,25 +178,53 @@ export default function CustomerReviewsSection() {
           </h2>
         </div>
 
-        {/* 3 REVIEW CARDS GRID (RIGHT TO LEFT SLIDE IN 3 SECONDS) */}
-        <div 
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-          className="relative min-h-[320px]"
-        >
-          <AnimatePresence mode="wait">
+        {/* CAROUSEL STAGE WITH LEFT & RIGHT ARROWS */}
+        <div className="relative px-2 sm:px-10">
+          
+          {/* LEFT CHEVRON ARROW */}
+          <button
+            onClick={handlePrev}
+            aria-label="Previous Review"
+            className="absolute -left-2 sm:left-0 top-1/2 -translate-y-1/2 z-30 p-2.5 sm:p-3 rounded-full bg-[#14151C]/90 border border-[#E0B094]/30 hover:border-[#E0B094] text-[#E0B094] hover:bg-[#E0B094] hover:text-black transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.8)]"
+          >
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+          </button>
+
+          {/* RIGHT CHEVRON ARROW */}
+          <button
+            onClick={handleNext}
+            aria-label="Next Review"
+            className="absolute -right-2 sm:right-0 top-1/2 -translate-y-1/2 z-30 p-2.5 sm:p-3 rounded-full bg-[#14151C]/90 border border-[#E0B094]/30 hover:border-[#E0B094] text-[#E0B094] hover:bg-[#E0B094] hover:text-black transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.8)]"
+          >
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+          </button>
+
+          {/* CAROUSEL TRACK (1 CARD ON MOBILE, 3 CARDS ON DESKTOP) */}
+          <div 
+            ref={containerRef}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            className="relative overflow-hidden py-2"
+          >
             <motion.div 
-              key={currentPage}
-              initial={{ opacity: 0, x: 60 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -60 }}
-              transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8"
+              className="flex gap-6"
+              animate={{ 
+                x: -currentIndex * stepWidth 
+              }}
+              transition={
+                withTransition 
+                  ? { duration: 0.7, ease: [0.25, 1, 0.5, 1] } 
+                  : { duration: 0 }
+              }
             >
-              {reviewsPages[currentPage].map((item) => (
+              {extendedReviews.map((item, idx) => (
                 <div
-                  key={item.id}
-                  className="bg-[#0D0E13] border border-[#E0B094]/20 hover:border-[#E0B094]/50 p-8 rounded-2xl flex flex-col items-center text-center justify-between shadow-[0_10px_35px_rgba(0,0,0,0.85)] transition-all duration-300 group hover:-translate-y-1"
+                  key={`${item.id}-${idx}`}
+                  style={{ 
+                    width: stepWidth ? `${stepWidth - 24}px` : (isMobile ? '100%' : 'calc((100% - 48px) / 3)'), 
+                    minWidth: stepWidth ? `${stepWidth - 24}px` : (isMobile ? '100%' : 'calc((100% - 48px) / 3)') 
+                  }}
+                  className="flex-shrink-0 flex-grow-0 bg-[#0C0D10] border border-[#E0B094]/30 hover:border-[#E0B094]/60 p-6 sm:p-8 rounded-2xl flex flex-col items-center text-center justify-between shadow-lg transition-all duration-300 group hover:-translate-y-1"
                 >
                   {/* Top Golden Double Quote Mark (66 Icon) */}
                   <div className="mb-4">
@@ -193,17 +261,21 @@ export default function CustomerReviewsSection() {
                 </div>
               ))}
             </motion.div>
-          </AnimatePresence>
+          </div>
+
         </div>
 
         {/* BOTTOM PAGINATION DOTS */}
         <div className="flex items-center justify-center gap-2.5 mt-10">
-          {reviewsPages.map((_, idx) => (
+          {reviews.map((_, idx) => (
             <button
               key={idx}
-              onClick={() => setCurrentPage(idx)}
+              onClick={() => {
+                setWithTransition(true);
+                setCurrentIndex(idx);
+              }}
               className={`h-2 rounded-full transition-all duration-300 ${
-                currentPage === idx 
+                (currentIndex % reviews.length) === idx 
                   ? 'w-6 bg-[#E0B094]' 
                   : 'w-2 bg-white/20 hover:bg-white/40'
               }`}

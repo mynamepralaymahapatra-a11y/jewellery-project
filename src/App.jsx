@@ -5,7 +5,7 @@ import BrandFeaturesBar from './components/BrandFeaturesBar';
 import RotatingArcShowcase from './components/RotatingArcShowcase';
 import CollectionShowcase from './components/CollectionShowcase';
 import CustomerReviewsSection from './components/CustomerReviewsSection';
-import ExhibitionEvents from './components/ExhibitionEvents';
+import OurServicesSection from './components/OurServicesSection';
 import TicketModal from './components/TicketModal';
 import AmbientAudioPlayer from './components/AmbientAudioPlayer';
 import Footer from './components/Footer';
@@ -50,8 +50,8 @@ export default function App() {
       {/* What Our Customers Say - Review Section */}
       <CustomerReviewsSection />
 
-      {/* Private Salons & Atelier Symposia */}
-      <ExhibitionEvents onOpenTickets={() => setIsTicketModalOpen(true)} />
+      {/* Our Services Section */}
+      <OurServicesSection />
 
       {/* Footer */}
       <Footer onOpenTickets={() => setIsTicketModalOpen(true)} />
